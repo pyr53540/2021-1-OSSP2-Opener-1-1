@@ -23,10 +23,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Header("RoomPanel")]
     public GameObject RoomPanel;
     public Text ListText;
+    public Text ListText2;
     public Text RoomInfoText;
     public Text[] ChatText;
     public InputField ChatInput;
-    public Button SoundBtn; //sound onoff
 
     [Header("ETC")]
     public Text StatusText;
@@ -147,9 +147,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     void RoomRenewal()
     {
-        ListText.text = "";
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-            ListText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+        ListText.text = "[참여자]\n";
+        ListText2.text = "[마이크]\n";
+
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) {
+            ListText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : "\n");
+            ListText2.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : "\n");
+        }
         RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 / " + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
     }
 
