@@ -83,7 +83,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
     #region 서버연결
-    void Awake() => Screen.SetResolution(960, 540, false);
+    void Awake() {
+        Screen.SetResolution(960, 540, false);
+        Connect();
+        OnConnectedToMaster();
+        OnJoinedLobby();
+    }
 
     void Update()
     {
@@ -91,9 +96,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         LobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 / " + PhotonNetwork.CountOfPlayers + "접속";
     }
 
-    public void Connect() => PhotonNetwork.ConnectUsingSettings();
+    public void Connect() {
+        PhotonNetwork.ConnectUsingSettings();
+    }
 
-    public override void OnConnectedToMaster() => PhotonNetwork.JoinLobby();
+    public override void OnConnectedToMaster() {
+        PhotonNetwork.JoinLobby();
+    }
 
     public override void OnJoinedLobby()
     {
